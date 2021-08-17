@@ -50,16 +50,14 @@ async function start() {
   if (serverJ) {
     const path = "./result.txt";
     let content = "";
+    let msg = new Date().toLocaleDateString();
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
     }  
-    let t = content.match(/【签到概览】:  (.*?)\n/)
-    t = t ? t[1] : ''
-    let t2 = content.match(/【签到奖励】:  (.*?)\n/)
-    t2 = t2 ? t2[1] : ''
-    let t3 = content.match(/【其他奖励】:  (.*?)\n/)
-    t3 = t3 ? t3[1] : ''
-    let msg = new Date().toLocaleDateString() + '\n' + t + '\n' + t2 + '\n' + t3
+    let results = content.match(/【(.*?)\n/)
+    for(let result of results) {
+      msg = msg + '\n' + result[0];
+    }
     await sendNotify(msg);
   }
 }
