@@ -53,11 +53,11 @@ async function start() {
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
     }  
-    let t = content.match(/【签到概览】:([^\n]+?)\n/)
+    let t = content.match(/【签到概览】:(.*?)【/)
     console.log(t[1])
-    let t2 = content.match(/【签到奖励】:([^\n]+?)\n/)
+    let t2 = content.match(/【签到奖励】:(.*?)【/)
     console.log(t2[1])
-    let t3 = content.match(/【其他奖励】:([^\n]+?)\n/)
+    let t3 = content.match(/【其他奖励】:(.*?)【/)
     console.log(t3[1])
     let msg = new Date().toLocaleDateString() + '\n' + t[1] + '\n' + t2[1] + '\n' + t3[1]
     console.log(msg)
