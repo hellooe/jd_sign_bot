@@ -7,7 +7,6 @@ const KEY = process.env.JD_COOKIE;
 const serverJ = process.env.PUSH_URI;
 const sendKey = process.env.PUSH_KEY;
 
-
 async function downFile () {
     const url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js';
     await download(url, './');
@@ -47,16 +46,16 @@ async function start() {
   await exec("node JD_DailyBonus.js >> result.txt");
   console.log('执行完毕')
 
-  if (serverJ) {
+  if (serverJ && sendKey) {
     const path = "./result.txt";
     let content = "";
-    let msg = new Date().toLocaleDateString();
+    let msg = "";
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
-    }  
-    let results = content.matchAll(/【(.*?)\n/g)
-    for(let result of results) {
-      msg = msg + '\n' + result[0];
+      let results = content.matchAll(/【(.*?)\n/g)
+      for(let result of results) {
+        msg += result[0];
+      }
     }
     await sendNotify(msg);
   }
