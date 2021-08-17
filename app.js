@@ -53,11 +53,10 @@ async function start() {
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
     }  
-    let t = content.match(/【签到概览】:((.|\n)*)【签到总计】/)
-    let m = t ? t[1] : ''
-    let t2 = content.match(/【签到总计】:((.|\n)*)【账号总计】/)
-    let m2 = t2 ? t2[1] : ''
-    let msg = "" + m2 + m + new Date().toLocaleDateString()
+    let t = content.match(/【签到概览】:(.*)\n/)
+    let t2 = content.match(/【签到奖励】:(.*)\n/)
+    let t3 = content.match(/【其他奖励】:(.*)\n/)
+    let msg = new Date().toLocaleDateString() + '\n' + t[1] + '\n' + t2[1] + '\n' + t3[1]
     await sendNotify(msg);
   }
 }
