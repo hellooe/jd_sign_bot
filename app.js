@@ -54,7 +54,7 @@ async function start() {
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
     }  
-    let results = content.match(/【(.*?)\n/)
+    let results = content.matchAll(/【(.*?)\n/g)
     for(let result of results) {
       msg = msg + '\n' + result[0];
     }
