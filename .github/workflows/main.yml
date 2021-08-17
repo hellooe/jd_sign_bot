@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '5 16 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.0
+        with:
+          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+          node-version: '12.x'
+      - run: npm install
+      - run: node app.js
+        env:
+          JD_COOKIE: ${{ secrets.JD_COOKIE }}
+          PUSH_URI: ${{ secrets.PUSH_URI }}
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
