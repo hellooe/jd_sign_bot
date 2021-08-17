@@ -43,9 +43,7 @@ async function start() {
     return
   }
   await downFile();
-  console.log('代码下载完毕')
   await changeFile();
-  console.log('变量替换完毕')
   await exec("node JD_DailyBonus.js >> result.txt");
   console.log('执行完毕')
 
