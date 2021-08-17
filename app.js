@@ -54,8 +54,10 @@ async function start() {
       content = fs.readFileSync(path, "utf8");
     }  
     let t = content.match(/【签到概览】:((.|\n)*)【签到总计】/)
+    let m = t ? t[1] : ''
     let t2 = content.match(/【签到总计】:((.|\n)*)【账号总计】/)
-    let msg = "" + t2[1] + t[1] + new Date().toLocaleDateString()
+    let m2 = t2 ? t2[1] : ''
+    let msg = "" + m2 + m + new Date().toLocaleDateString()
     await sendNotify(msg);
   }
 }
