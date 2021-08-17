@@ -21,9 +21,9 @@ async function changeFile () {
 
 async function sendNotify (msg) {
   const options ={
-    uri:  `${serverJ}`,
+    uri:  serverJ,
     body: {
-      "sendkey": `${sendKey}`,
+      "sendkey": sendKey,
       "msg_type": "text",
       "msg": msg
     },
@@ -55,7 +55,7 @@ async function start() {
     }  
     let t = content.match(/【签到概览】:((.|\n)*)【签到总计】/)
     let t2 = content.match(/【签到总计】:((.|\n)*)【账号总计】/)
-    let msg = t2[1] + t[1] + new Date().toLocaleDateString()
+    let msg = "" + t2[1] + t[1] + new Date().toLocaleDateString()
     await sendNotify(msg);
   }
 }
