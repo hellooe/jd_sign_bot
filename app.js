@@ -19,14 +19,14 @@ async function changeFile () {
    await fs.writeFileSync( './JD_DailyBonus.js', content, 'utf8')
 }
 
-async function sendNotify (content) {
+async function sendNotify (msg) {
   const options ={
     uri:  `${serverJ}`,
     body: {
-		"sendkey": sendKey,
-		"msg_type": "text",
-		"msg": content,
-	},
+      "sendkey": `${sendKey}`,
+      "msg_type": "text",
+      "msg": msg
+    },
     json: true,
     method: 'POST'
   }
@@ -53,7 +53,10 @@ async function start() {
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
     }  
-    await sendNotify(content);
+    let t = content.match(/【签到概览】:((.|\n)*)【签到总计】/)
+    let t2 = content.match(/【签到总计】:((.|\n)*)【账号总计】/)
+    let msg = t2 + t + new Date().toLocaleDateString()
+    await sendNotify(msg);
   }
 }
 
